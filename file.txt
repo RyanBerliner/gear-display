@@ -1,0 +1,136 @@
+/* below are fields that you will need to update to your bikes specifications */
+
+/* mesure your wheel diameter. do not assume that a 29" wheel has a diameter of 29", 
+   or 27.5" wheel a diameter of 27.5". they are often different. use inches */
+var rearWheelDiameterInches = 26;
+
+/* the number of teeth on your front chain ring */
+var frontChainRingSize = 34;
+
+/* here you will enter each cog on your cassette. start with your smallest ring */
+var cogOne = 11;
+var cogTwo = 13;
+var cogThree = 15;
+var cogFour = 17;
+var cogFive = 19;
+var cogSix = 22;
+var cogSeven = 25;
+var cogEight = 28;
+var cogNine = 32;
+var cogTen = 36;
+
+/* you have entered all of the information required. hit save, add the app to your desired
+sportmode, and sync your watch. go ride */
+
+/* do not edit code below */
+
+/*
+
+-
+
+-
+
+-
+
+-
+
+-
+
+DO
+
+NOT
+
+EDIT
+
+ANYTHING
+
+BELOW
+
+THIS
+
+POINT
+
+-
+
+-
+
+-
+
+-
+
+-
+
+*/
+
+/* do not edit code below */
+
+var cadence = SUUNTO_CADENCE_AVG[3];
+var speed = SUUNTO_SPEED_AVG[3];
+
+var threshold = .05;
+
+var rearWheelRPM = speed * ((.621371 * (63360/(rearWheelDiameterInches * 3.14159)))/60); 
+gearRatio = rearWheelRPM/cadence;
+
+var gearRatioOne = frontChainRingSize/cogOne;
+	var OneLower = gearRatioOne * (1 - threshold);
+	var OneUpper = gearRatioOne * (1 + threshold);
+var gearRatioTwo = frontChainRingSize/cogTwo;
+	var TwoLower = gearRatioTwo * (1 - threshold);
+	var TwoUpper = gearRatioTwo * (1 + threshold);
+var gearRatioThree = frontChainRingSize/cogThree;
+	var ThreeLower = gearRatioThree * (1 - threshold);
+	var ThreeUpper = gearRatioThree * (1 + threshold);
+var gearRatioFour = frontChainRingSize/cogFour;
+	var FourLower = gearRatioFour * (1 - threshold);
+	var FourUpper = gearRatioFour * (1 + threshold);
+var gearRatioFive = frontChainRingSize/cogFive;
+	var FiveLower = gearRatioFive * (1 - threshold);
+	var FiveUpper = gearRatioFive * (1 + threshold);
+var gearRatioSix = frontChainRingSize/cogSix;
+	var SixLower = gearRatioSix * (1 - threshold);
+	var SixUpper = gearRatioSix * (1 + threshold);
+var gearRatioSeven = frontChainRingSize/cogSeven;
+	var SevenLower = gearRatioSeven * (1 - threshold);
+	var SevenUpper = gearRatioSeven * (1 + threshold);
+var gearRatioEight = frontChainRingSize/cogEight;
+	var EightLower = gearRatioEight * (1 - threshold);
+	var EightUpper = gearRatioEight * (1 + threshold);
+var gearRatioNine = frontChainRingSize/cogNine;
+	var NineLower = gearRatioNine * (1 - threshold);
+	var NineUpper = gearRatioNine * (1 + threshold);
+var gearRatioTen = frontChainRingSize/cogTen;
+	var TenLower = gearRatioTen * (1 - threshold);
+	var TenUpper = gearRatioTen * (1 + threshold);
+
+
+
+if (SUUNTO_CADENCE == 0){
+  currentGear = 0;
+  prefix = "coast";
+}else{
+  prefix = "gear";
+  if (OneLower < gearRatio && gearRatio < OneUpper){
+	currentGear = 10;
+  }else if (TwoLower < gearRatio && gearRatio < TwoUpper){
+      currentGear = 9;
+  }else if (ThreeLower < gearRatio && gearRatio < ThreeUpper){
+      currentGear = 8;
+  }else if (FourLower < gearRatio && gearRatio < FourUpper){
+      currentGear = 7;
+  }else if (FiveLower < gearRatio && gearRatio < FiveUpper){
+      currentGear = 6;
+  }else if (SixLower < gearRatio && gearRatio < SixUpper){
+      currentGear = 5;
+  }else if (SevenLower < gearRatio && gearRatio < SevenUpper){
+      currentGear = 4;
+  }else if (EightLower < gearRatio && gearRatio < EightUpper){
+      currentGear = 3;
+  }else if (NineLower < gearRatio && gearRatio < NineUpper){
+      currentGear = 2;
+  }else if (TenLower < gearRatio && gearRatio < TenUpper){
+      currentGear = 1;
+  }
+}
+
+RESULT = currentGear;
